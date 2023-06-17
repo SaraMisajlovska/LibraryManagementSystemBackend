@@ -1,4 +1,4 @@
-package mk.ukim.finki.lms.entity.user;
+package mk.ukim.finki.lms.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;

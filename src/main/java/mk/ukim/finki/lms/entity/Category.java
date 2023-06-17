@@ -4,7 +4,11 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import mk.ukim.finki.lms.entity.book.Book;
 import mk.ukim.finki.lms.enums.CategoryName;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -20,4 +24,7 @@ public class Category {
   @Enumerated(EnumType.STRING)
   @Column(name = "category_name", nullable = false)
   private CategoryName categoryName;
+
+  @ManyToMany(mappedBy = "categories")
+  private Set<Book> books = new HashSet<>();
 }

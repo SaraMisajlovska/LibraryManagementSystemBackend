@@ -1,9 +1,10 @@
-package mk.ukim.finki.lms.entity;
+package mk.ukim.finki.lms.entity.user;
 
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import mk.ukim.finki.lms.entity.Membership;
 import mk.ukim.finki.lms.entity.user.LibraryUser;
 
 @Getter

@@ -54,6 +54,5 @@ public class Book {
       joinColumns = @JoinColumn(name = "book_id"),
       inverseJoinColumns = @JoinColumn(name = "category_id")
   )
-  //TODO falat rating and review tuka
   private Set<Category> categories = new HashSet<>();
 }

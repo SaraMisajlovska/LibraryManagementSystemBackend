@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import mk.ukim.finki.lms.entity.LibraryEvent;
 
 @Getter
 @Setter

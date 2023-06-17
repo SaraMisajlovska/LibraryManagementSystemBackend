@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import mk.ukim.finki.lms.entity.Patron;
+import mk.ukim.finki.lms.entity.user.Patron;
 import mk.ukim.finki.lms.enums.ReservationStatus;
 
 import java.time.LocalDate;

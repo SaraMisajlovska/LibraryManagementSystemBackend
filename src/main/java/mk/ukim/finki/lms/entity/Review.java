@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import mk.ukim.finki.lms.entity.book.Book;
+import mk.ukim.finki.lms.entity.user.Patron;
 
 @Getter
 @Setter

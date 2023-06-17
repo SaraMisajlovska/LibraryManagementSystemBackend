@@ -4,12 +4,16 @@ import jakarta.persistence.*;
 import lombok.Getter;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
+import mk.ukim.finki.lms.entity.book.Book;
 
 @Getter
 
 @Entity
 @Table(name = "author")
 public class Author {
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
@@ -22,4 +26,7 @@ public class Author {
 
   @Column(name = "biography")
   private String biography;
+
+  @ManyToMany(mappedBy = "authors")
+  private Set<Book> books = new HashSet<>();
 }
