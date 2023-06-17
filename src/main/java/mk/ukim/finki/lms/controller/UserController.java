@@ -1,5 +1,6 @@
 package mk.ukim.finki.lms.controller;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import mk.ukim.finki.lms.repository.UserRepository;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -11,12 +12,9 @@ import java.time.LocalDate;
 
 @Controller
 @Slf4j
+@RequiredArgsConstructor
 public class UserController {
   private final UserRepository userRepository;
-
-  public UserController(UserRepository userRepository) {
-    this.userRepository = userRepository;
-  }
 
   @PostMapping("/login")
   public String login(@RequestParam("email") String email, @RequestParam("password") String password) {
@@ -36,18 +34,18 @@ public class UserController {
 
   @PostMapping("/register")
   public String register(@RequestParam("email") String email,
-                               @RequestParam("userPassword") String userPassword,
-                               @RequestParam("firstName") String firstName,
-                               @RequestParam("lastName") String lastName,
-                               @RequestParam("dateOfBirth") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateOfBirth,
-                               @RequestParam("address") String address,
-                               @RequestParam("phoneNumber") String phoneNumber,
-                               @RequestParam("cardNumber") Integer cardNumber,
-                               @RequestParam("membershipId") Integer membershipId) {
+                         @RequestParam("userPassword") String userPassword,
+                         @RequestParam("firstName") String firstName,
+                         @RequestParam("lastName") String lastName,
+                         @RequestParam("dateOfBirth") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateOfBirth,
+                         @RequestParam("address") String address,
+                         @RequestParam("phoneNumber") String phoneNumber,
+                         @RequestParam("cardNumber") Integer cardNumber,
+                         @RequestParam("membershipId") Integer membershipId) {
 
     // Invoke the register_patron function
     userRepository.register(email, userPassword, firstName, lastName, dateOfBirth,
-            address, phoneNumber, cardNumber, membershipId);
+        address, phoneNumber, cardNumber, membershipId);
 
     // Return a response indicating success
     return null;

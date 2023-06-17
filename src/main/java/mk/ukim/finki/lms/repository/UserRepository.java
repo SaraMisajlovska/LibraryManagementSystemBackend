@@ -1,18 +1,16 @@
 package mk.ukim.finki.lms.repository;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 
 @Repository
+@RequiredArgsConstructor
 public class UserRepository {
 
   private final JdbcTemplate jdbcTemplate;
-
-  public UserRepository(JdbcTemplate jdbcTemplate) {
-    this.jdbcTemplate = jdbcTemplate;
-  }
 
   public boolean login(String email, String password) {
     String sql = "SELECT login(?, ?)";
@@ -24,7 +22,8 @@ public class UserRepository {
                        String phone_number, Integer card_number, Integer membership_id) {
 
     String sql = "SELECT register_patron(?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    jdbcTemplate.query(sql, params -> {}, email, user_password, first_name, last_name, date_of_birth,
+    jdbcTemplate.query(sql, params -> {
+        }, email, user_password, first_name, last_name, date_of_birth,
         address, phone_number, card_number, membership_id);
   }
 }
