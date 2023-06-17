@@ -19,12 +19,12 @@ public class UserRepository {
     return Boolean.TRUE.equals(jdbcTemplate.queryForObject(sql, Boolean.class, email, password));
   }
 
-  public void register(String p_email, String p_user_password, String p_first_name,
-                       String p_last_name, LocalDate p_date_of_birth, String p_address,
-                       String p_phone_number, Integer p_card_number, Integer p_membership_id) {
+  public void register(String email, String user_password, String first_name,
+                       String last_name, LocalDate date_of_birth, String address,
+                       String phone_number, Integer card_number, Integer membership_id) {
 
     String sql = "SELECT register_patron(?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    jdbcTemplate.update(sql, p_email, p_user_password, p_first_name, p_last_name, p_date_of_birth,
-            p_address, p_phone_number, p_card_number, p_membership_id);
+    jdbcTemplate.update(sql, email, user_password, first_name, last_name, date_of_birth,
+            address, phone_number, card_number, membership_id);
   }
 }

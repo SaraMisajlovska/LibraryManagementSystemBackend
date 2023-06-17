@@ -35,7 +35,7 @@ public class UserController {
   }
 
   @PostMapping("/register")
-  public String registerPatron(@RequestParam("email") String email,
+  public String register(@RequestParam("email") String email,
                                @RequestParam("userPassword") String userPassword,
                                @RequestParam("firstName") String firstName,
                                @RequestParam("lastName") String lastName,
