@@ -24,7 +24,7 @@ public class UserController {
 
     if (loggedIn) {
       // User login successful
-      log.info("isloggedin");
+      log.info("is logged in");
       return null; // Replace "success-template" with the appropriate template
     } else {
       log.info("is not logged in");
