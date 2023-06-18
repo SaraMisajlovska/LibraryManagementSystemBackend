@@ -2,6 +2,7 @@ package mk.ukim.finki.lms.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import mk.ukim.finki.lms.dto.UserReservationDTO;
 import mk.ukim.finki.lms.repository.UserRepository;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Controller
 @Slf4j
@@ -48,6 +50,18 @@ public class UserController {
         address, phoneNumber, cardNumber, membershipId);
 
     // Return a response indicating success
+    return null;
+  }
+
+  @PostMapping("/userReservations")
+  public String getActiveReservations(@RequestParam("firstName") String firstName,
+                                      @RequestParam("lastName") String lastName,
+                                      @RequestParam("cardNumber") Integer cardNumber) {
+
+    List<UserReservationDTO> userActiveReservations = userRepository.userActiveReservations(firstName,
+        lastName,
+        cardNumber);
+
     return null;
   }
 }
