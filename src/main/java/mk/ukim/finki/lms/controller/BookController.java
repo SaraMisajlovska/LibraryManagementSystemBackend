@@ -2,13 +2,16 @@ package mk.ukim.finki.lms.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import mk.ukim.finki.lms.dto.ReservationDTO;
 import mk.ukim.finki.lms.repository.BookRepository;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 @Controller
 @Slf4j
@@ -36,6 +39,18 @@ public class BookController {
 
         // Invoke the register_patron function
         BigDecimal fee = bookRepository.calculateLateFee(cardNumber, bookTitle);
+
+        // Return a response indicating success
+        return null;
+    }
+
+    @GetMapping("/allReservations")
+    public String allReservations(@RequestParam("firstName") String firstName,
+                                  @RequestParam("lastName") String lastName,
+                                  @RequestParam("cardNumber") Integer cardNumber) {
+
+        // Invoke the register_patron function
+        List<ReservationDTO> reservations = bookRepository.getAllReservations(firstName, lastName, cardNumber);
 
         // Return a response indicating success
         return null;
