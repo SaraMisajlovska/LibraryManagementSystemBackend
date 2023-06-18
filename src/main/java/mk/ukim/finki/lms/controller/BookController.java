@@ -3,6 +3,7 @@ package mk.ukim.finki.lms.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import mk.ukim.finki.lms.dto.ReservationDTO;
+import mk.ukim.finki.lms.dto.UnreturnedBooksDTO;
 import mk.ukim.finki.lms.repository.BookRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -50,7 +51,17 @@ public class BookController {
                                   @RequestParam("cardNumber") Integer cardNumber) {
 
         // Invoke the register_patron function
-        List<ReservationDTO> reservations = bookRepository.getAllReservations(firstName, lastName, cardNumber);
+        List<ReservationDTO> reservations = bookRepository.getReservations(firstName, lastName, cardNumber);
+
+        // Return a response indicating success
+        return null;
+    }
+
+    @GetMapping("/unreturnedBooks")
+    public String unreturnedBooks(@RequestParam("cardNumber") Integer cardNumber) {
+
+        // Invoke the register_patron function
+        List<UnreturnedBooksDTO> unreturnedBooks = bookRepository.getUnreturnedBooks(cardNumber);
 
         // Return a response indicating success
         return null;

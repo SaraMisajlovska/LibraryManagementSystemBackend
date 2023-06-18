@@ -3,6 +3,7 @@ package mk.ukim.finki.lms.repository;
 import lombok.RequiredArgsConstructor;
 import mk.ukim.finki.lms.dto.BookDTO;
 import mk.ukim.finki.lms.dto.ReservationDTO;
+import mk.ukim.finki.lms.dto.UnreturnedBooksDTO;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -33,7 +34,7 @@ public class BookRepository {
                 BigDecimal.class);
     }
 
-    public List<ReservationDTO> getAllReservations(String firstName, String lastName, Integer cardNumber) {
+    public List<ReservationDTO> getReservations(String firstName, String lastName, Integer cardNumber) {
 
         String sql = "SELECT * FROM all_reservations_view WHERE " +
                 "(patron_first_name LIKE ? )" +
@@ -49,6 +50,18 @@ public class BookRepository {
         return jdbcTemplate.query(sql, queryParams, (resultSet, rowNum) -> mapRowToReservation(resultSet));
     }
 
+    public List<UnreturnedBooksDTO> getUnreturnedBooks(Integer cardNumber) {
+
+        String sql = "SELECT * FROM unreturned_books WHERE " +
+                "(card_number::varchar LIKE ?) ";
+
+        Object[] queryParams = new Object[]{
+                "%" + cardNumber + "%"
+        };
+
+        return jdbcTemplate.query(sql, queryParams, (resultSet, rowNum) -> mapRowToUnreturnedBooks(resultSet));
+    }
+
     private ReservationDTO mapRowToReservation(ResultSet resultSet) {
         try {
             return ReservationDTO.builder()
@@ -60,6 +73,22 @@ public class BookRepository {
                     .bookCategory(resultSet.getString("book_category"))
                     .reservationDate(resultSet.getDate("reservation_date").toLocalDate())
                     .reservationStatus(resultSet.getString("reservation_status"))
+                    .build();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private UnreturnedBooksDTO mapRowToUnreturnedBooks(ResultSet resultSet) {
+        try {
+            return UnreturnedBooksDTO.builder()
+                    .patronFirstName(resultSet.getString("first_name"))
+                    .patronLastName(resultSet.getString("last_name"))
+                    .patronCardNumber(resultSet.getString("card_number"))
+                    .bookTitle(resultSet.getString("title"))
+                    .authors(resultSet.getString("authors"))
+                    .bookCheckoutDate(resultSet.getDate("book_checkout").toLocalDate())
+                    .daysBorrowed(resultSet.getInt("days_borrowed"))
                     .build();
         } catch (SQLException e) {
             throw new RuntimeException(e);
