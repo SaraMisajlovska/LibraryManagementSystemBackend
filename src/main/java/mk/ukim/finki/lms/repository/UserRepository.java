@@ -1,6 +1,7 @@
 package mk.ukim.finki.lms.repository;
 
 import lombok.RequiredArgsConstructor;
+import mk.ukim.finki.lms.dto.UserInfoDTO;
 import mk.ukim.finki.lms.dto.UserReservationDTO;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -49,6 +50,22 @@ public class UserRepository {
         (resultSet, rowNum) -> mapToUserReservation(resultSet));
   }
 
+  public List<UserInfoDTO> getUserInfo(String firstName, String lastName) {
+
+    String sql = "SELECT * FROM user_info_view WHERE " +
+            "(first_name LIKE ? )" +
+            "AND (last_name LIKE ?) ";
+
+    Object[] queryParams = new Object[]{
+            "%" + firstName + "%",
+            "%" + lastName + "%"
+    };
+
+    return jdbcTemplate.query(sql,
+            queryParams,
+            (resultSet, rowNum) -> mapToUserInfo(resultSet));
+  }
+
   private UserReservationDTO mapToUserReservation(ResultSet resultSet) {
     try {
       return UserReservationDTO.builder()
@@ -64,4 +81,22 @@ public class UserRepository {
       throw new RuntimeException(e);
     }
   }
+
+  private UserInfoDTO mapToUserInfo(ResultSet resultSet) {
+    try {
+      return UserInfoDTO.builder()
+              .firstName(resultSet.getString("first_name"))
+              .lastName(resultSet.getString("last_name"))
+              .dateOfBirth(resultSet.getDate("date_of_birth").toLocalDate())
+              .address(resultSet.getString("address"))
+              .phoneNumber(resultSet.getString("phone_number"))
+              .cardNumber(resultSet.getString("card_number"))
+              .membershipPackage(resultSet.getString("membership_package"))
+              ._case(resultSet.getString("case"))
+              .build();
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
 }

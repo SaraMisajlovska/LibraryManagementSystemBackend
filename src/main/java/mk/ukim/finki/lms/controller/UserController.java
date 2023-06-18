@@ -2,10 +2,13 @@ package mk.ukim.finki.lms.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import mk.ukim.finki.lms.dto.UnreturnedBooksDTO;
+import mk.ukim.finki.lms.dto.UserInfoDTO;
 import mk.ukim.finki.lms.dto.UserReservationDTO;
 import mk.ukim.finki.lms.repository.UserRepository;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -64,5 +67,17 @@ public class UserController {
 
     return null;
   }
+
+  @GetMapping("/userInfo")
+  public String unreturnedBooks(@RequestParam("firstName") String firstName,
+                                @RequestParam("lastName") String lastName) {
+
+    // Invoke the register_patron function
+    List<UserInfoDTO> userInfo = userRepository.getUserInfo(firstName, lastName);
+
+    // Return a response indicating success
+    return null;
+  }
+
 }
 
