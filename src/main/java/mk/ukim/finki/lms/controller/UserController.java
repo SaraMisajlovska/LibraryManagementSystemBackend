@@ -69,7 +69,7 @@ public class UserController {
   }
 
   @GetMapping("/userInfo")
-  public String unreturnedBooks(@RequestParam("firstName") String firstName,
+  public String getUserInfo(@RequestParam("firstName") String firstName,
                                 @RequestParam("lastName") String lastName) {
 
     // Invoke the register_patron function
