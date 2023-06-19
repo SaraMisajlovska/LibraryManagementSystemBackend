@@ -5,6 +5,7 @@ import mk.ukim.finki.lms.dto.ReadingListDTO;
 import mk.ukim.finki.lms.dto.UserDTO;
 import mk.ukim.finki.lms.dto.UserInfoDTO;
 import mk.ukim.finki.lms.dto.UserReservationDTO;
+import mk.ukim.finki.lms.enums.MembershipPackage;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -26,7 +27,11 @@ public class UserRepository {
 
   public void register(String email, String user_password, String first_name,
                        String last_name, LocalDate date_of_birth, String address,
-                       String phone_number, Integer card_number, Integer membership_id) {
+                       String phone_number, String membership) {
+
+    int card_number = jdbcTemplate.queryForObject("SELECT nextval('card_number_seq')", Integer.class);
+
+    int membership_id = MembershipPackage.valueOf(membership).ordinal();
 
     String sql = "SELECT register_patron(?, ?, ?, ?, ?, ?, ?, ?, ?)";
     jdbcTemplate.query(sql, params -> {
