@@ -2,7 +2,8 @@ package mk.ukim.finki.lms.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import mk.ukim.finki.lms.dto.UnreturnedBooksDTO;
+import mk.ukim.finki.lms.dto.ReadingListDTO;
+import mk.ukim.finki.lms.dto.UserDTO;
 import mk.ukim.finki.lms.dto.UserInfoDTO;
 import mk.ukim.finki.lms.dto.UserReservationDTO;
 import mk.ukim.finki.lms.repository.UserRepository;
@@ -56,10 +57,10 @@ public class UserController {
     return null;
   }
 
-  @PostMapping("/userReservations")
+  @GetMapping("/userReservations")
   public String getActiveReservations(@RequestParam("firstName") String firstName,
                                       @RequestParam("lastName") String lastName,
-                                      @RequestParam("cardNumber") Integer cardNumber) {
+                                      @RequestParam("cardNumber") String cardNumber) {
 
     List<UserReservationDTO> userActiveReservations = userRepository.userActiveReservations(firstName,
         lastName,
@@ -70,10 +71,31 @@ public class UserController {
 
   @GetMapping("/userInfo")
   public String getUserInfo(@RequestParam("firstName") String firstName,
-                                @RequestParam("lastName") String lastName) {
+                            @RequestParam("lastName") String lastName) {
 
     // Invoke the register_patron function
     List<UserInfoDTO> userInfo = userRepository.getUserInfo(firstName, lastName);
+
+    // Return a response indicating success
+    return null;
+  }
+
+  @GetMapping("/readingList")
+  public String getReadingList(@RequestParam("cardNumber") String cardNumber) {
+
+    // Invoke the register_patron function
+    List<ReadingListDTO> userReadingList = userRepository.getUserReadingList(cardNumber);
+
+    // Return a response indicating success
+    return null;
+  }
+
+  @GetMapping("/users")
+  public String getUsers(@RequestParam(value = "firstName", required = false) String firstName,
+                         @RequestParam(value = "lastName", required = false) String lastName) {
+
+    // Invoke the register_patron function
+    List<UserDTO> users = userRepository.getUsers(firstName, lastName);
 
     // Return a response indicating success
     return null;

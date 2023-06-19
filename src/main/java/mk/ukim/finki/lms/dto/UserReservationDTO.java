@@ -9,7 +9,7 @@ public class UserReservationDTO {
 
   private String firstName;
   private String lastName;
-  private Integer cardNumber;
+  private String cardNumber;
   private String bookTitle;
   private String bookAuthor;
   private String bookCategory;
