@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Reservations</title>
+</head>
+<body>
+<h1>User Reservations</h1>
+
+<table>
+    <thead>
+    <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Card Number</th>
+        <th>Book Title</th>
+        <th>Book Author</th>
+        <th>Book Category</th>
+        <th>Reservation Date</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="reservation : ${userActiveReservations}">
+        <td th:text="${reservation.firstName}"></td>
+        <td th:text="${reservation.lastName}"></td>
+        <td th:text="${reservation.cardNumber}"></td>
+        <td th:text="${reservation.bookTitle}"></td>
+        <td th:text="${reservation.bookAuthor}"></td>
+        <td th:text="${reservation.bookCategory}"></td>
+        <td th:text="${reservation.reservationDate}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

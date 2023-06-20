@@ -51,62 +51,65 @@ public class UserController {
 
     // Invoke the register_patron function
     userRepository.register(email, userPassword, firstName, lastName, dateOfBirth,
-        address, phoneNumber,membership);
+        address, phoneNumber, membership);
 
     // Return a response indicating success
     return "redirect:/login";
   }
 
   @GetMapping("/userReservations")
-  public String getActiveReservations(@RequestParam("firstName") String firstName,
+  public String getActiveReservations(Model model,
+                                      @RequestParam("firstName") String firstName,
                                       @RequestParam("lastName") String lastName,
                                       @RequestParam("cardNumber") String cardNumber) {
-
     List<UserReservationDTO> userActiveReservations = userRepository.userActiveReservations(firstName,
         lastName,
         cardNumber);
 
-    return null;
+    // test this
+    model.addAttribute("userActiveReservations", userActiveReservations);
+    return "user/active-reservations";
   }
 
   @GetMapping("/userInfo")
-  public String getUserInfo(@RequestParam("firstName") String firstName,
+  public String getUserInfo(Model model,
+                            @RequestParam("firstName") String firstName,
                             @RequestParam("lastName") String lastName) {
-
-    // Invoke the register_patron function
     List<UserInfoDTO> userInfo = userRepository.getUserInfo(firstName, lastName);
 
-    // Return a response indicating success
-    return null;
+    // test this
+    model.addAttribute("userInfo", userInfo);
+    return "user/user-info";
   }
 
   @GetMapping("/readingList")
-  public String getReadingList(@RequestParam("cardNumber") String cardNumber) {
-
-    // Invoke the register_patron function
+  public String getReadingList(Model model,
+                               @RequestParam("cardNumber") String cardNumber) {
     List<ReadingListDTO> userReadingList = userRepository.getUserReadingList(cardNumber);
 
-    // Return a response indicating success
-    return null;
+    model.addAttribute("userReadingList", userReadingList);
+    return "user/reading-list";
   }
 
   @GetMapping("/users")
-  public String getUsers(@RequestParam(value = "firstName", required = false) String firstName,
+  public String getUsers(Model model,
+                         @RequestParam(value = "firstName", required = false) String firstName,
                          @RequestParam(value = "lastName", required = false) String lastName) {
-
-    // Invoke the register_patron function
     List<UserDTO> users = userRepository.getUsers(firstName, lastName);
 
-    // Return a response indicating success
-    return null;
+    // test this
+    model.addAttribute("users", users);
+    return "user/users";
   }
 
   @GetMapping("/eventAttendance")
-  public String eventAttendance(@RequestParam(value = "eventName", required = false) String eventName) {
-
+  public String eventAttendance(Model model,
+                                @RequestParam(value = "eventName", required = false) String eventName) {
     List<EventDTO> eventAttendances = userRepository.getEventAttendance(eventName);
 
-    return null;
+    // test this
+    model.addAttribute("eventAttendances", eventAttendances);
+    return "user/event-attendance";
   }
 
 }

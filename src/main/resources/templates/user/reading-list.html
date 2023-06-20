@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Reading List</title>
+</head>
+<body>
+<h1>Reading List</h1>
+
+<table>
+    <thead>
+    <tr>
+        <th>Card Number</th>
+        <th>Title</th>
+        <th>Publisher ID</th>
+        <th>Publication Date</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="readingList : ${userReadingList}">
+        <td th:text="${readingList.cardNumber}"></td>
+        <td th:text="${readingList.title}"></td>
+        <td th:text="${readingList.publisherId}"></td>
+        <td th:text="${readingList.publicationDate}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

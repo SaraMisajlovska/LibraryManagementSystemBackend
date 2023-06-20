@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Event Attendance</title>
+</head>
+<body>
+<h1>Event Attendance</h1>
+
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Event Name</th>
+        <th>Description</th>
+        <th>Event Time</th>
+        <th>Number of Attendees</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="eventAttendance : ${eventAttendances}">
+        <td th:text="${eventAttendance.id}"></td>
+        <td th:text="${eventAttendance.eventName}"></td>
+        <td th:text="${eventAttendance.description}"></td>
+        <td th:text="${eventAttendance.eventTime}"></td>
+        <td th:text="${eventAttendance.numAttendees}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
