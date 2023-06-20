@@ -66,7 +66,6 @@ public class UserController {
         lastName,
         cardNumber);
 
-    // test this
     model.addAttribute("userActiveReservations", userActiveReservations);
     return "user/active-reservations";
   }
@@ -77,7 +76,6 @@ public class UserController {
                             @RequestParam("lastName") String lastName) {
     List<UserInfoDTO> userInfo = userRepository.getUserInfo(firstName, lastName);
 
-    // test this
     model.addAttribute("userInfo", userInfo);
     return "user/user-info";
   }
@@ -97,7 +95,6 @@ public class UserController {
                          @RequestParam(value = "lastName", required = false) String lastName) {
     List<UserDTO> users = userRepository.getUsers(firstName, lastName);
 
-    // test this
     model.addAttribute("users", users);
     return "user/users";
   }
@@ -107,7 +104,6 @@ public class UserController {
                                 @RequestParam(value = "eventName", required = false) String eventName) {
     List<EventDTO> eventAttendances = userRepository.getEventAttendance(eventName);
 
-    // test this
     model.addAttribute("eventAttendances", eventAttendances);
     return "user/event-attendance";
   }

@@ -1,10 +1,12 @@
 package mk.ukim.finki.lms.dto;
 
 import lombok.Builder;
+import lombok.Getter;
 
 import java.time.LocalDate;
 
 @Builder
+@Getter
 public class UserReservationDTO {
 
   private String firstName;
