@@ -2,10 +2,7 @@ package mk.ukim.finki.lms.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import mk.ukim.finki.lms.dto.ReadingListDTO;
-import mk.ukim.finki.lms.dto.UserDTO;
-import mk.ukim.finki.lms.dto.UserInfoDTO;
-import mk.ukim.finki.lms.dto.UserReservationDTO;
+import mk.ukim.finki.lms.dto.*;
 import mk.ukim.finki.lms.enums.MembershipPackage;
 import mk.ukim.finki.lms.repository.UserRepository;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -101,6 +98,14 @@ public class UserController {
     List<UserDTO> users = userRepository.getUsers(firstName, lastName);
 
     // Return a response indicating success
+    return null;
+  }
+
+  @GetMapping("/eventAttendance")
+  public String eventAttendance(@RequestParam(value = "eventName", required = false) String eventName) {
+
+    List<EventDTO> eventAttendances = userRepository.getEventAttendance(eventName);
+
     return null;
   }
 

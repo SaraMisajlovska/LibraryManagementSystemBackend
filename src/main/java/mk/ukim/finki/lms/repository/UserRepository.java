@@ -1,10 +1,7 @@
 package mk.ukim.finki.lms.repository;
 
 import lombok.RequiredArgsConstructor;
-import mk.ukim.finki.lms.dto.ReadingListDTO;
-import mk.ukim.finki.lms.dto.UserDTO;
-import mk.ukim.finki.lms.dto.UserInfoDTO;
-import mk.ukim.finki.lms.dto.UserReservationDTO;
+import mk.ukim.finki.lms.dto.*;
 import mk.ukim.finki.lms.enums.MembershipPackage;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -103,6 +100,20 @@ public class UserRepository {
         (resultSet, rowNum) -> mapToUsers(resultSet));
   }
 
+  public List<EventDTO> getEventAttendance(String eventName) {
+
+    String sql = "SELECT * FROM event_attendance WHERE " +
+            "(event_name LIKE ? )";
+
+    Object[] queryParams = new Object[]{
+            "%" + eventName + "%"
+    };
+
+    return jdbcTemplate.query(sql,
+            queryParams,
+            (resultSet, rowNum) -> mapToEvent(resultSet));
+  }
+
   private UserReservationDTO mapToUserReservation(ResultSet resultSet) {
     try {
       return UserReservationDTO.builder()
@@ -158,6 +169,20 @@ public class UserRepository {
           .email(resultSet.getString("email"))
           .phoneNumber(resultSet.getString("phone_number"))
           .build();
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  private EventDTO mapToEvent(ResultSet resultSet) {
+    try {
+      return EventDTO.builder()
+              .id(resultSet.getLong("event_id"))
+              .eventName(resultSet.getString("event_name"))
+              .description(resultSet.getString("description"))
+              .eventTime(resultSet.getDate("event_datetime").toLocalDate())
+              .numAttendees(resultSet.getInt("num_attendees"))
+              .build();
     } catch (SQLException e) {
       throw new RuntimeException(e);
     }

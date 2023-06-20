@@ -2,6 +2,7 @@ package mk.ukim.finki.lms.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import mk.ukim.finki.lms.dto.BorrowedBooksDTO;
 import mk.ukim.finki.lms.dto.ReservationDTO;
 import mk.ukim.finki.lms.dto.UnreturnedBooksDTO;
 import mk.ukim.finki.lms.repository.BookRepository;
@@ -60,8 +61,28 @@ public class BookController {
     @GetMapping("/unreturnedBooks")
     public String unreturnedBooks(@RequestParam("cardNumber") Integer cardNumber) {
 
-        // Invoke the register_patron function
         List<UnreturnedBooksDTO> unreturnedBooks = bookRepository.getUnreturnedBooks(cardNumber);
+
+        // Return a response indicating success
+        return null;
+    }
+
+    @GetMapping("/borrowedBooksHistory")
+    public String borrowedBooksHistory(@RequestParam(value = "borrowerName", required = false) String borrowerName,
+                                       @RequestParam(value = "cardNumber", required = false) Integer cardNumber,
+                                       @RequestParam(value = "bookTitle", required = false) String bookTitle) {
+
+        List<BorrowedBooksDTO> borrowedBooks = bookRepository.getBorrowedBooks(borrowerName, cardNumber, bookTitle);
+
+        // Return a response indicating success
+        return null;
+    }
+
+    @GetMapping("/bookCopiesCount")
+    public String bookCopiesCount(@RequestParam("bookCopyId") Long bookCopyId) {
+
+        // Invoke the register_patron function
+        Integer count = bookRepository.getBookCopyCount(bookCopyId);
 
         // Return a response indicating success
         return null;

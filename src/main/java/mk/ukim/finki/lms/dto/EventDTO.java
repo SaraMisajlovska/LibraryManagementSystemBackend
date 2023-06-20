@@ -11,4 +11,5 @@ public class EventDTO {
   private String eventName;
   private String description;
   private LocalDate eventTime;
+  private Integer numAttendees;
 }
