@@ -2,6 +2,7 @@ package mk.ukim.finki.lms.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import mk.ukim.finki.lms.dto.BookDTO;
 import mk.ukim.finki.lms.dto.BorrowedBooksDTO;
 import mk.ukim.finki.lms.dto.ReservationDTO;
 import mk.ukim.finki.lms.dto.UnreturnedBooksDTO;
@@ -28,7 +29,6 @@ public class BookController {
                              @RequestParam("bookCheckout") LocalDate bookCheckout,
                              @RequestParam("checkoutLibrarianId") Integer checkoutLibrarianId) {
 
-        // Invoke the register_patron function
         bookRepository.borrowBook(userId, bookCopyId, bookCheckout, checkoutLibrarianId);
 
         // Return a response indicating success
@@ -39,7 +39,6 @@ public class BookController {
     public String calculateFee(@RequestParam("cardNumber") Integer cardNumber,
                              @RequestParam("bookTitle") String bookTitle) {
 
-        // Invoke the register_patron function
         BigDecimal fee = bookRepository.calculateLateFee(cardNumber, bookTitle);
 
         // Return a response indicating success
@@ -51,7 +50,6 @@ public class BookController {
                                   @RequestParam("lastName") String lastName,
                                   @RequestParam("cardNumber") Integer cardNumber) {
 
-        // Invoke the register_patron function
         List<ReservationDTO> reservations = bookRepository.getReservations(firstName, lastName, cardNumber);
 
         // Return a response indicating success
@@ -81,10 +79,11 @@ public class BookController {
     @GetMapping("/bookCopiesCount")
     public String bookCopiesCount(@RequestParam("bookCopyId") Long bookCopyId) {
 
-        // Invoke the register_patron function
-        Integer count = bookRepository.getBookCopyCount(bookCopyId);
+        List<BookDTO> bookCopies = bookRepository.getBookCopyCount(bookCopyId);
 
-        // Return a response indicating success
+        Integer count = bookCopies.get(0).getBookCopyCount();
+
+        //tuka treba count da se vrati
         return null;
     }
 

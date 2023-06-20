@@ -80,20 +80,28 @@ public class BookRepository {
         return jdbcTemplate.query(sql, queryParams, (resultSet, rowNum) -> mapRowToBorrowedBooks(resultSet));
     }
 
-    public Integer getBookCopyCount(Long bookCopyId) {
+    public List<BookDTO> getBookCopyCount(Long bookCopyId) {
 
         String sql = "SELECT * FROM copy_borrow_count WHERE " +
-                "(bookCopyId::varchar LIKE ?) ";
+                "(book_copy_id::varchar LIKE ?) ";
 
         Object[] queryParams = new Object[]{
                 "%" + bookCopyId + "%"
         };
 
-        return jdbcTemplate.queryForObject(sql,
-                queryParams,
-                Integer.class);
+        return jdbcTemplate.query(sql, queryParams, (resultSet, rowNum) -> mapRowToBookCopyCount(resultSet));
     }
 
+    private BookDTO mapRowToBookCopyCount(ResultSet resultSet) {
+        try {
+            return BookDTO.builder()
+                    .id(resultSet.getLong("book_copy_id"))
+                    .bookCopyCount(resultSet.getInt("borrow_count"))
+                    .build();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
     private ReservationDTO mapRowToReservation(ResultSet resultSet) {
         try {
             return ReservationDTO.builder()
