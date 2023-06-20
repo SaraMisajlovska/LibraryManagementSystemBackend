@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+        }
+    </style>
+    <title>Search Results - Events</title>
+</head>
+<body>
+<h1>Search Results - Events</h1>
+
+<table>
+    <thead>
+    <tr>
+        <th>Event Name</th>
+        <th>Description</th>
+        <th>Event Time</th>
+        <th>Number of Attendees</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="event : ${events}">
+        <td th:text="${event.eventName}"></td>
+        <td th:text="${event.description}"></td>
+        <td th:text="${event.eventTime}"></td>
+        <td th:text="${event.numAttendees}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

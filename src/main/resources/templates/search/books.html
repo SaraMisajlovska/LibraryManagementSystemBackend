@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+        }
+    </style>
+    <title>Search Results</title>
+</head>
+<body>
+<h1>Search Results</h1>
+
+<table>
+    <thead>
+    <tr>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Category</th>
+        <th>Publication Date</th>
+        <th>Copy Count</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="book : ${books}">
+        <td th:text="${book.title}"></td>
+        <td th:text="${book.authorName}"></td>
+        <td th:text="${book.categoryName}"></td>
+        <td th:text="${book.publicationDate}"></td>
+        <td th:text="${book.bookCopyCount}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

@@ -51,7 +51,6 @@ public class SearchRepository {
   private BookDTO mapRowToBook(ResultSet resultSet) {
     try {
       return BookDTO.builder()
-          .id(resultSet.getLong("r_id"))
           .title(resultSet.getString("r_title"))
           .authorName(resultSet.getString("r_author_name"))
           .categoryName(resultSet.getString("r_category_name"))
@@ -65,7 +64,6 @@ public class SearchRepository {
   private AuthorDTO mapRowToAuthor(ResultSet resultSet) {
     try {
       return AuthorDTO.builder()
-          .id(resultSet.getLong("r_id"))
           .authorName(resultSet.getString("r_author_name"))
           .biography(resultSet.getString("r_biography"))
           .birthDate(resultSet.getDate("r_birth_date").toLocalDate())
@@ -78,7 +76,6 @@ public class SearchRepository {
   private EventDTO mapRowToEvent(ResultSet resultSet) {
     try {
       return EventDTO.builder()
-          .id(resultSet.getLong("r_id"))
           .eventName(resultSet.getString("r_event_name"))
           .description(resultSet.getString("r_description"))
           .eventTime(resultSet.getDate("r_event_datetime").toLocalDate())
