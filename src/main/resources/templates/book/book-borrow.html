@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Book Borrow</title>
+</head>
+<body>
+<h2>Book Borrow</h2>
+<form action="/bookBorrow" method="post">
+    <label for="userId">User ID:</label>
+    <input type="text" id="userId" name="userId"><br><br>
+
+    <label for="bookCopyId">Book Copy ID:</label>
+    <input type="text" id="bookCopyId" name="bookCopyId"><br><br>
+
+    <label for="bookTitle">Book Title:</label>
+    <input type="text" id="bookTitle" name="bookTitle"><br><br>
+
+    <label for="bookCheckout">Book Checkout Date:</label>
+    <input type="date" id="bookCheckout" name="bookCheckout"><br><br>
+
+    <label for="checkoutLibrarianId">Checkout Librarian ID:</label>
+    <input type="text" id="checkoutLibrarianId" name="checkoutLibrarianId"><br><br>
+
+    <button type="submit">Borrow Book</button>
+
+    <div th:if="${successMessage}">
+        <p th:text="${successMessage}"></p>
+    </div>
+</form>
+</body>
+</html>

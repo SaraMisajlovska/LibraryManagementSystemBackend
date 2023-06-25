@@ -8,6 +8,7 @@ import mk.ukim.finki.lms.dto.ReservationDTO;
 import mk.ukim.finki.lms.dto.UnreturnedBooksDTO;
 import mk.ukim.finki.lms.repository.BookRepository;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,16 +24,29 @@ public class BookController {
 
     private final BookRepository bookRepository;
 
+    @GetMapping("bookBorrow")
+    public String getBookBorrow(Model model) {
+        model.addAttribute("successMessage", false);
+
+        return "book/book-borrow";
+    }
+
     @PostMapping("/bookBorrow")
     public String bookBorrow(@RequestParam("userId") Integer userId,
                              @RequestParam("bookCopyId") Integer bookCopyId,
+                             @RequestParam("bookTitle") String bookTitle,
                              @RequestParam("bookCheckout") LocalDate bookCheckout,
-                             @RequestParam("checkoutLibrarianId") Integer checkoutLibrarianId) {
+                             @RequestParam("checkoutLibrarianId") Integer checkoutLibrarianId,
+                             Model model) {
 
-        bookRepository.borrowBook(userId, bookCopyId, bookCheckout, checkoutLibrarianId);
+        bookRepository.borrowBook(userId, bookCopyId, bookTitle, bookCheckout, checkoutLibrarianId);
 
-        // Return a response indicating success
-        return null;
+        // Set success message
+        String successMessage = "Book borrow successful!";
+        model.addAttribute("successMessage", successMessage);
+
+        // Return the same view with the success message
+        return "book/book-borrow";
     }
 
     @PostMapping("/calculateFee")
