@@ -38,7 +38,7 @@ public class SearchRepository {
 
   public List<EventDTO> searchEvents(String eventName, String eventTime) {
 
-    Date convertedEventTime = eventTime != null ? Date.valueOf(eventTime) : null;
+    Date convertedEventTime = !eventTime.isBlank() ? Date.valueOf(eventTime) : null;
 
     String sql = "SELECT * FROM search_events(?, ?)";
     return jdbcTemplate.query(

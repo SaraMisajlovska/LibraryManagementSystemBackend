@@ -15,6 +15,16 @@
     <title>Search Results - Authors</title>
 </head>
 <body>
+<form th:action="@{/searchAuthors}" method="post">
+    <!-- Form field for searching authors -->
+    <input type="text" name="author_name" th:value="${authorName}" placeholder="Author Name">
+
+    <button type="submit">Search</button>
+</form>
+<form method="get"
+      th:action="@{/searchAuthors}">
+    <button type="submit">New Search</button>
+</form>
 <h1>Search Results - Authors</h1>
 
 <table>
@@ -33,5 +43,13 @@
     </tr>
     </tbody>
 </table>
+<form method="post"
+      th:action="@{/searchAuthors(author_name=${authorName}, page=${page != null ? page + 1 : 1})}">
+    <button type="submit">Next Page</button>
+</form>
+<form method="post"
+      th:action="@{/searchAuthors(author_name=${authorName}, page=${page != null ? page - 1 : 1})}">
+    <button type="submit">Previous Page</button>
+</form>
 </body>
 </html>

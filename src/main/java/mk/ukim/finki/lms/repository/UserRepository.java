@@ -181,11 +181,10 @@ public class UserRepository {
               .eventName(resultSet.getString("event_name"))
               .description(resultSet.getString("description"))
               .eventTime(resultSet.getDate("event_datetime").toLocalDate())
-              .numAttendees(resultSet.getInt("num_attendees"))
+              .numAttendees(resultSet.getLong("num_attendees"))
               .build();
     } catch (SQLException e) {
       throw new RuntimeException(e);
     }
   }
-
 }
