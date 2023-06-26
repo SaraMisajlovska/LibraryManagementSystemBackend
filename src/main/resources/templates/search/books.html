@@ -15,8 +15,22 @@
     <title>Search Results</title>
 </head>
 <body>
-<h1>Search Results</h1>
+<form th:action="@{/searchBooks}" method="post">
+    <!-- Form fields for searching books -->
+    <input type="text" name="author_name" th:value="${authorName}" placeholder="Author Name">
+    <input type="text" name="title" th:value="${title}" placeholder="Title">
+    <input type="text" name="categoryName" th:value="${categoryName}" placeholder="Category Name">
+    <!-- Hidden input field for the page parameter -->
+    <input type="hidden" name="page" th:value="${page}">
 
+    <button type="submit">Search</button>
+</form>
+<form method="get"
+      th:action="@{/searchBooks}">
+    <button type="submit">New Search</button>
+</form>
+
+<h1>Search Results</h1>
 <table>
     <thead>
     <tr>
@@ -24,7 +38,6 @@
         <th>Author</th>
         <th>Category</th>
         <th>Publication Date</th>
-        <th>Copy Count</th>
     </tr>
     </thead>
     <tbody>
@@ -33,9 +46,16 @@
         <td th:text="${book.authorName}"></td>
         <td th:text="${book.categoryName}"></td>
         <td th:text="${book.publicationDate}"></td>
-        <td th:text="${book.bookCopyCount}"></td>
     </tr>
     </tbody>
 </table>
+<form method="post"
+      th:action="@{/searchBooks(author_name=${authorName}, title=${title}, categoryName=${categoryName}, page=${page != null ? page + 1 : 1})}">
+    <button type="submit">Next Page</button>
+</form>
+<form method="post"
+      th:action="@{/searchBooks(author_name=${authorName}, title=${title}, categoryName=${categoryName}, page=${page != null ? page -1 : 1})}">
+    <button type="submit">Previous Page</button>
+</form>
 </body>
 </html>
