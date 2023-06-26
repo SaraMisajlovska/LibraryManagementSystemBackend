@@ -24,9 +24,9 @@ public class BookController {
 
   private final BookRepository bookRepository;
 
-    @GetMapping("/bookBorrow")
-    public String getBookBorrow(Model model) {
-        model.addAttribute("successMessage", false);
+  @GetMapping("/bookBorrow")
+  public String getBookBorrow(Model model) {
+    model.addAttribute("successMessage", false);
 
     return "book/book-borrow";
   }
@@ -108,6 +108,29 @@ public class BookController {
     model.addAttribute("count", "The book copy with id: " + bookCopyId + " has been borrowed " + count + " times.");
 
     return "book/book-copies-count";
+  }
+
+  @GetMapping("/reserveBook")
+  public String getReserveBook(Model model) {
+    model.addAttribute("successMessage", false);
+
+    return "book/reserve-book";
+  }
+
+  @PostMapping("/reserveBook")
+  public String reserveBook(@RequestParam("book_copy_id") Integer bookCopyId,
+                            @RequestParam("book_title") String bookTitle,
+                            @RequestParam("patron_id") Integer patronId,
+                            @RequestParam("reservation_date") LocalDate reservationDate,
+                            Model model) {
+
+    // Invoke the register_patron function
+    bookRepository.reserveBook(bookCopyId, bookTitle, patronId, reservationDate);
+
+    String successMessage = "Book reserved successfully!";
+    model.addAttribute("successMessage", successMessage);
+
+    return "book/reserve-book";
   }
 
 }

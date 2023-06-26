@@ -92,6 +92,14 @@ public class BookRepository {
     return jdbcTemplate.query(sql, queryParams, (resultSet, rowNum) -> mapRowToBookCopyCount(resultSet));
   }
 
+
+  public void reserveBook(Integer book_copy_id, String book_title, Integer patron_id, LocalDate reservation_date) {
+
+    String sql = "SELECT reserve_book(?, ?, ?, ?)";
+    jdbcTemplate.query(sql, params -> {
+    }, book_copy_id, book_title, patron_id, reservation_date);
+  }
+
   private BookDTO mapRowToBookCopyCount(ResultSet resultSet) {
     try {
       return BookDTO.builder()

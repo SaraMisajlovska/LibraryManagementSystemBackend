@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Reserve Book</title>
+</head>
+<body>
+<h2>Reserve book</h2>
+<form action="/reserveBook" method="post">
+  <label for="patron_id">Patron ID:</label>
+  <input type="text" required id="patron_id" name="patron_id"><br><br>
+
+  <label for="book_copy_id">Book copy ID:</label>
+  <input type="text" required id="book_copy_id" name="book_copy_id"><br><br>
+
+  <label for="book_title">Book title:</label>
+  <input type="text" required id="book_title" name="book_title"><br><br>
+
+  <label for="reservation_date">Reservation date:</label>
+  <input type="date" required id="reservation_date" name="reservation_date"><br><br>
+
+  <button type="submit">Reserve book</button>
+
+  <div th:if="${successMessage}">
+    <p th:text="${successMessage}"></p>
+  </div>
+</form>
+</body>
+</html>
