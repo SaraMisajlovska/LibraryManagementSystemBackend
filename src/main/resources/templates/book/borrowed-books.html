@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+        }
+    </style>
+    <title>Borrowed books</title>
+</head>
+<body>
+<table>
+    <thead>
+    <tr>
+        <th>Borrower Name</th>
+        <th>Card Number</th>
+        <th>Book Title</th>
+        <th>Book Author</th>
+        <th>Book Format</th>
+        <th>Checkout Date</th>
+        <th>Return Date</th>
+        <th>Damage Description</th>
+        <th>Book Category</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="book : ${borrowedBooks}">
+        <td th:text="${book.borrowerName}"></td>
+        <td th:text="${book.cardNumber}"></td>
+        <td th:text="${book.bookTitle}"></td>
+        <td th:text="${book.bookAuthor}"></td>
+        <td th:text="${book.bookFormat}"></td>
+        <td th:text="${book.checkoutDate}"></td>
+        <td th:text="${book.returnDate}"></td>
+        <td th:text="${book.damageDescription}"></td>
+        <td th:text="${book.bookCategory}"></td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

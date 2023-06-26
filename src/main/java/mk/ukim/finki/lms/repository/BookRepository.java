@@ -146,9 +146,9 @@ public class BookRepository {
           .bookAuthor(resultSet.getString("book_author"))
           .bookFormat(resultSet.getString("book_format"))
           .checkoutDate(resultSet.getDate("checkout_date").toLocalDate())
-          .returnDate(resultSet.getDate("return_date").toLocalDate())
+          .returnDate(resultSet.getObject("return_date", LocalDate.class))
           .damageDescription(resultSet.getString("damage_description"))
-          .bookCategory(resultSet.getString("category"))
+          .bookCategory(resultSet.getString("book_category"))
           .build();
     } catch (SQLException e) {
       throw new RuntimeException(e);

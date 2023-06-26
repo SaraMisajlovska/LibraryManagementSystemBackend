@@ -22,83 +22,92 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BookController {
 
-    private final BookRepository bookRepository;
+  private final BookRepository bookRepository;
 
-    @GetMapping("bookBorrow")
-    public String getBookBorrow(Model model) {
-        model.addAttribute("successMessage", false);
+  @GetMapping("bookBorrow")
+  public String getBookBorrow(Model model) {
+    model.addAttribute("successMessage", false);
 
-        return "book/book-borrow";
-    }
+    return "book/book-borrow";
+  }
 
-    @PostMapping("/bookBorrow")
-    public String bookBorrow(@RequestParam("userId") Integer userId,
-                             @RequestParam("bookCopyId") Integer bookCopyId,
-                             @RequestParam("bookTitle") String bookTitle,
-                             @RequestParam("bookCheckout") LocalDate bookCheckout,
-                             @RequestParam("checkoutLibrarianId") Integer checkoutLibrarianId,
-                             Model model) {
+  @PostMapping("/bookBorrow")
+  public String bookBorrow(@RequestParam("userId") Integer userId,
+                           @RequestParam("bookCopyId") Integer bookCopyId,
+                           @RequestParam("bookTitle") String bookTitle,
+                           @RequestParam("bookCheckout") LocalDate bookCheckout,
+                           @RequestParam("checkoutLibrarianId") Integer checkoutLibrarianId,
+                           Model model) {
 
-        bookRepository.borrowBook(userId, bookCopyId, bookTitle, bookCheckout, checkoutLibrarianId);
+    bookRepository.borrowBook(userId, bookCopyId, bookTitle, bookCheckout, checkoutLibrarianId);
 
-        // Set success message
-        String successMessage = "Book borrow successful!";
-        model.addAttribute("successMessage", successMessage);
+    // Set success message
+    String successMessage = "Book borrow successful!";
+    model.addAttribute("successMessage", successMessage);
 
-        // Return the same view with the success message
-        return "book/book-borrow";
-    }
+    // Return the same view with the success message
+    return "book/book-borrow";
+  }
 
-    @PostMapping("/calculateFee")
-    public String calculateFee(@RequestParam("cardNumber") Integer cardNumber,
-                             @RequestParam("bookTitle") String bookTitle) {
+  @GetMapping("/calculateFee")
+  public String calculateFee() {
+    return "book/calculate-fee";
+  }
 
-        BigDecimal fee = bookRepository.calculateLateFee(cardNumber, bookTitle);
+  @PostMapping("/calculateFee")
+  public String calculateFee(Model model,
+                             @RequestParam("cardNumber") Integer cardNumber,
+                             @RequestParam(value = "bookTitle", required = false) String bookTitle) {
 
-        // Return a response indicating success
-        return null;
-    }
+    BigDecimal fee = bookRepository.calculateLateFee(cardNumber, bookTitle);
+    model.addAttribute("fee", fee + " den.");
 
-    @GetMapping("/allReservations")
-    public String allReservations(@RequestParam("firstName") String firstName,
-                                  @RequestParam("lastName") String lastName,
-                                  @RequestParam("cardNumber") Integer cardNumber) {
+    return "book/calculate-fee";
+  }
 
-        List<ReservationDTO> reservations = bookRepository.getReservations(firstName, lastName, cardNumber);
+  @GetMapping("/allReservations")
+  public String allReservations(Model model,
+                                @RequestParam("firstName") String firstName,
+                                @RequestParam("lastName") String lastName,
+                                @RequestParam("cardNumber") Integer cardNumber) {
 
-        // Return a response indicating success
-        return null;
-    }
+    List<ReservationDTO> reservations = bookRepository.getReservations(firstName, lastName, cardNumber);
+    model.addAttribute("reservations", reservations);
 
-    @GetMapping("/unreturnedBooks")
-    public String unreturnedBooks(@RequestParam("cardNumber") Integer cardNumber) {
+    return "book/all-reservations";
+  }
 
-        List<UnreturnedBooksDTO> unreturnedBooks = bookRepository.getUnreturnedBooks(cardNumber);
+  @GetMapping("/unreturnedBooks")
+  public String unreturnedBooks(Model model,
+                                @RequestParam("cardNumber") Integer cardNumber) {
 
-        // Return a response indicating success
-        return null;
-    }
+    List<UnreturnedBooksDTO> unreturnedBooks = bookRepository.getUnreturnedBooks(cardNumber);
+    model.addAttribute("unreturnedBooks", unreturnedBooks);
 
-    @GetMapping("/borrowedBooksHistory")
-    public String borrowedBooksHistory(@RequestParam(value = "borrowerName", required = false) String borrowerName,
-                                       @RequestParam(value = "cardNumber", required = false) Integer cardNumber,
-                                       @RequestParam(value = "bookTitle", required = false) String bookTitle) {
+    return "book/unreturned-books";
+  }
 
-        List<BorrowedBooksDTO> borrowedBooks = bookRepository.getBorrowedBooks(borrowerName, cardNumber, bookTitle);
+  @GetMapping("/borrowedBooksHistory")
+  public String borrowedBooksHistory(Model model,
+                                     @RequestParam(value = "borrowerName", required = false) String borrowerName,
+                                     @RequestParam(value = "cardNumber") Integer cardNumber,
+                                     @RequestParam(value = "bookTitle", required = false) String bookTitle) {
 
-        // Return a response indicating success
-        return null;
-    }
+    List<BorrowedBooksDTO> borrowedBooks = bookRepository.getBorrowedBooks(borrowerName, cardNumber, bookTitle);
+    model.addAttribute("borrowedBooks", borrowedBooks);
 
-    @GetMapping("/bookCopiesCount")
-    public String bookCopiesCount(@RequestParam("bookCopyId") Long bookCopyId) {
+    return "book/borrowed-books";
+  }
 
-        List<BookDTO> bookCopies = bookRepository.getBookCopyCount(bookCopyId);
+  @GetMapping("/bookCopiesCount")
+  public String bookCopiesCount(Model model, @RequestParam("bookCopyId") Long bookCopyId) {
 
-        Integer count = bookCopies.get(0).getBookCopyCount();
+    List<BookDTO> bookCopies = bookRepository.getBookCopyCount(bookCopyId);
 
-        //tuka treba count da se vrati
-        return null;
-    }
+    Integer count = bookCopies.get(0).getBookCopyCount();
+    model.addAttribute("count", "The book copy with id: " + bookCopyId + " has been borrowed " + count + " times.");
+
+    return "book/book-copies-count";
+  }
 
 }

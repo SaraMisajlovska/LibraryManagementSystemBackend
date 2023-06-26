@@ -8,19 +8,19 @@
 <h2>Book Borrow</h2>
 <form action="/bookBorrow" method="post">
     <label for="userId">User ID:</label>
-    <input type="text" id="userId" name="userId"><br><br>
+    <input required type="text" id="userId" name="userId"><br><br>
 
     <label for="bookCopyId">Book Copy ID:</label>
-    <input type="text" id="bookCopyId" name="bookCopyId"><br><br>
+    <input required type="text" id="bookCopyId" name="bookCopyId"><br><br>
 
     <label for="bookTitle">Book Title:</label>
-    <input type="text" id="bookTitle" name="bookTitle"><br><br>
+    <input required type="text" id="bookTitle" name="bookTitle"><br><br>
 
     <label for="bookCheckout">Book Checkout Date:</label>
-    <input type="date" id="bookCheckout" name="bookCheckout"><br><br>
+    <input required type="date" id="bookCheckout" name="bookCheckout"><br><br>
 
     <label for="checkoutLibrarianId">Checkout Librarian ID:</label>
-    <input type="text" id="checkoutLibrarianId" name="checkoutLibrarianId"><br><br>
+    <input required type="text" id="checkoutLibrarianId" name="checkoutLibrarianId"><br><br>
 
     <button type="submit">Borrow Book</button>
 

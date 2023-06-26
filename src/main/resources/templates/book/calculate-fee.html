@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Calculate Fee</title>
+</head>
+<body>
+<h2>Calculate Fee</h2>
+<form action="/calculateFee" method="post">
+
+    <label for="cardNumber">Card Number:</label>
+    <input type="text" required id="cardNumber" name="cardNumber"><br><br>
+
+    <label for="bookTitle">Book Title (optional):</label>
+    <input type="text" id="bookTitle" name="bookTitle"><br><br>
+
+    <button type="submit">Calculate Fee</button>
+
+    <div th:if="${fee}">
+        <p th:text="${fee}"></p>
+    </div>
+</form>
+</body>
+</html>

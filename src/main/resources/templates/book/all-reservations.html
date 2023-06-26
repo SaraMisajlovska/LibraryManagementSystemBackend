@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+        }
+    </style>
+    <title>All reservations</title>
+</head>
+<body>
+<table>
+    <thead>
+    <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Card Number</th>
+        <th>Book Title</th>
+        <th>Book Author</th>
+        <th>Book Category</th>
+        <th>Reservation Date</th>
+        <th>Reservation Status</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="reservation : ${reservations}">
+        <td th:text="${reservation.patronFirstName}"></td>
+        <td th:text="${reservation.patronLastName}"></td>
+        <td th:text="${reservation.patronCardNumber}"></td>
+        <td th:text="${reservation.bookTitle}"></td>
+        <td th:text="${reservation.bookAuthor}"></td>
+        <td th:text="${reservation.bookCategory}"></td>
+        <td th:text="${reservation.reservationDate}"></td>
+        <td th:text="${reservation.reservationStatus}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
