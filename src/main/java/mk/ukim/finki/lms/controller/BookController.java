@@ -24,7 +24,7 @@ public class BookController {
 
     private final BookRepository bookRepository;
 
-    @GetMapping("bookBorrow")
+    @GetMapping("/bookBorrow")
     public String getBookBorrow(Model model) {
         model.addAttribute("successMessage", false);
 

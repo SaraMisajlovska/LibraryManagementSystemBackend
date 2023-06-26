@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Book Review Insert</title>
+</head>
+<body>
+<h2>Book Review Insert</h2>
+<form action="/insertBookReview" method="post">
+  <label for="patron_id">Patron ID:</label>
+  <input type="text" id="patron_id" name="patron_id"><br><br>
+
+  <label for="book_id">Book ID:</label>
+  <input type="text" id="book_id" name="book_id"><br><br>
+
+  <label for="review">Book Review:</label>
+  <input type="text" id="review" name="review"><br><br>
+
+  <button type="submit">Add Book Review</button>
+
+  <div th:if="${successMessage}">
+    <p th:text="${successMessage}"></p>
+  </div>
+</form>
+</body>
+</html>
