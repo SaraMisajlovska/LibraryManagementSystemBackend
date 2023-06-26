@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Book Copy</title>
+</head>
+<body>
+<h2>Book Copy</h2>
+<form action="/insertBookCopy" method="post">
+  <label for="book_id">Book ID:</label>
+  <input type="text" id="book_id" name="book_id"><br><br>
+
+  <label for="location_id">Location ID:</label>
+  <input type="text" id="location_id" name="location_id"><br><br>
+
+  <label for="edition">Edition:</label>
+  <input type="text" id="edition" name="edition"><br><br>
+
+  <label for="book_format">Book Format:</label>
+  <input type="text" id="book_format" name="book_format"><br><br>
+
+  <button type="submit">Book copy</button>
+
+  <div th:if="${successMessage}">
+    <p th:text="${successMessage}"></p>
+  </div>
+</form>
+</body>
+</html>
